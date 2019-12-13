@@ -155,11 +155,27 @@ function matchingChar2(str) {
             }
         }
     }
-    // if (isEmpty(stack)) {
-    //     return true;
-    // } else {
-    //     console.log(index);
-    //     return false;
-    // }
+    if (isEmpty(stack)) {
+        return true;
+    } else {
+        console.log(index);
+        return false;
+    }
 }
-console.log(matchingChar2(breakMaybe));
+// console.log(matchingChar2(breakMaybe));
+
+function sort(list) {
+
+    let sortStack = new Stack();
+    while(!isEmpty(list)) {
+        let x = list.pop();
+        while(!isEmpty(sortStack) && x > peek(sortStack)) {
+            list.push(sortStack.pop());
+        }
+        sortStack.push(x);
+    }
+    return display(sortStack);
+}
+
+
+
