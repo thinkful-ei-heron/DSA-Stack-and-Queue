@@ -15,14 +15,14 @@ class Stack {
             let node = new Node(item, null);
             this.top = node;
         } else {
-        let node = new Node(item, this.top);
-        this.top = node;
+            let node = new Node(item, this.top);
+            this.top = node;
         }
     }
     pop() {
         const node = this.top;
         this.top = node.next;
-        return node.data; 
+        return node.data;
     }
 }
 // const node = this.top;
@@ -81,65 +81,39 @@ function is_palindrome(s) {
 // console.log(is_palindrome('1001'));
 // console.log(is_palindrome('Tauhida'));
 
-// {()(())()}
-// () {} []
-// stack.push({);
-// stack.push((); 
-// ( , {
-// ) 
-// stack.pop()
-// {
-// stack.push(()
-// stack.push(()
-// ( ( {
-// stack
-
-
+let string01 = 'this()has the same(((num)) of (parens)';
 function matchingChar(str) {
     let stack = new Stack();
-    let openChar = '([{';
-    let closeChar = ')]}';
+    let openChar = '(';
+    let closeChar = ')';
     let index = 0;
-    for(let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
         if (openChar === str[i]) {
-            index = i
-            stack.push('(');
+            index = i;
+            stack.push(')');
         }
         else if (str[i] === closeChar) {
-            if(!peek(stack)){
-                //console.log(i)
+            if (!peek(stack)) {
+                console.log(i);
                 return false;
             }
             stack.pop();
         }
-        // else if (closeChar.includes(str[i]) && peek(stack) === null) {
-        //     return false;
-        // }
-   }
-    if(isEmpty(stack)){
+    }
+    if (isEmpty(stack)) {
         return true;
     } else {
         console.log(index);
         return false;
     }
-   // console.log('final')
-    // if(isEmpty(stack)) {
-    //     console.log
-    //     return true;
-    // } else if (!isEmpty(stack)) return false;
 }
-// ())
-  
-let string01 = 'this()has the same(((num)) of (parens)';
-let breakmaybe = '())'
-let string = 'x) (hello)';
-console.log(matchingChar(breakmaybe));
 
-// outside matched = true;
-// position = 0;
-// ( < ) <-- true
-// ((((()))))
-// (()()())
+// "([)]"
+
+let breakMaybe = '[{(}this is a test)]';
+let string = 'x (hello)';
+//console.log(matchingChar(breakMaybe));
+
 
 function main() {
     let starTrek = new Stack();
@@ -149,33 +123,43 @@ function main() {
     starTrek.push('Scotty');
     starTrek.pop();
     //display(starTrek);
-   // isEmpty(starTrek);
+    // isEmpty(starTrek);
 }
 
 
 main();
 
-// function matchingChar(str) {
-//     let stack = new Stack();
-//     let openChar = '(';
-//     let closeChar = ')';
-//     for(let i = 0; i < str.length; i++) {
-//         if (openChar.includes(str[i])) {
-//             stack.push(str[i]);
-//         }
-//         else if (openChar.indexOf(peek(stack)) === closeChar.indexOf(str[i])) { // <-- finding the pairs not 100%
-//             stack.pop();
-//         }
-//         else if (closeChar.includes(str[i]) && peek(stack) === null) {
-//             return false;
-//         }
-//     }
-//     console.log(stack);
-//     display(stack);
-//     return;
-//    // console.log('final')
-//     // if(isEmpty(stack)) {
-//     //     console.log
-//     //     return true;
-//     // } else if (!isEmpty(stack)) return false;
-// }
+function matchingChar2(str) {
+    let stack = new Stack();
+    let openChar = '([{';
+    let closeChar = ')]}';
+    let index = 0;
+    let returnedChar = null;
+    for (let i = 0; i < str.length; i++) {
+        if (openChar.includes(str[i])) {
+            index = i;
+            stack.push(str[i]);
+        }
+        if (closeChar.includes(str[i])) {
+            let top = peek(stack);
+            if (!top) {
+                return false;
+            }
+            if (openChar.indexOf(top) === closeChar.indexOf(str[i])) {
+                stack.pop();
+                return;
+            }
+            if (openChar.indexOf(top) !== closeChar.indexOf(str[i])) {
+                console.log(`Expecting a ${closeChar[openChar.indexOf(top)]} but found a ${str[i]}`);
+                return false;
+            }
+        }
+    }
+    // if (isEmpty(stack)) {
+    //     return true;
+    // } else {
+    //     console.log(index);
+    //     return false;
+    // }
+}
+console.log(matchingChar2(breakMaybe));
